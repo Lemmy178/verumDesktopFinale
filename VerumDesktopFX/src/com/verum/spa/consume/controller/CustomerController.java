@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class CustomerController {
 
-    private static Customer cus = new Customer();
+    private static Customer cus;
     private static CustomerConsumeREST cusRest = new CustomerConsumeREST();
     private static int code;
 
@@ -34,6 +34,7 @@ public class CustomerController {
 
     public static String addCustomerController(String name, String lastName1, String lastName2, String rfc,
             String tel, String adress, String gender, String email, String passw, String conName, String charge) {
+        cus = new Customer();
         Consumer consumer = new Consumer();
         cus.setFirstName(name);
         cus.setLastName1(lastName1);
@@ -60,7 +61,8 @@ public class CustomerController {
     public static String modifyCustomerController(
             String name, String lastName1, String lastName2, String rfc,
             String tel, String adress, String genre, String email, String pass, String charge,
-            int cusStatus, int cusId, int conId, int perId) {
+            String cusStatus, int cusId, int conId, int perId) {
+        cus = new Customer();
         Consumer consumer = new Consumer();
         cus.setFirstName(name);
         cus.setLastName1(lastName1);
@@ -70,7 +72,11 @@ public class CustomerController {
         cus.setPerAddress(adress);
         cus.setGender(genre);
         cus.setEmail(email);
-        cus.setCusStatus(cusStatus);
+        if (cusStatus.equals("Activo")) {
+            cus.setCusStatus(1);
+        } else {
+            cus.setCusStatus(2);
+        }
         consumer.setConId(conId);
         consumer.setPass(pass);
         consumer.setRole(charge);
@@ -86,7 +92,8 @@ public class CustomerController {
     }
 
     public static String logicalDelteCustomer(int cusId) {
-        cus.setPerId(code);
+        cus = new Customer();
+        cus.setCusId(cusId);
         code = cusRest.logicalDeleteCustomer(cus);
         if (code != 200) {
             return "Error";

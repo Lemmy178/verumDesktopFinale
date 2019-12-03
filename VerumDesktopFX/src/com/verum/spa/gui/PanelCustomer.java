@@ -82,6 +82,9 @@ public class PanelCustomer implements Initializable {
     private JFXComboBox<String> cmbGenre;
 
     @FXML
+    private JFXComboBox<String> cmbCusStatus;
+
+    @FXML
     private Label lblClientNumber;
 
     @FXML
@@ -148,18 +151,7 @@ public class PanelCustomer implements Initializable {
                         String response = CustomerController.addCustomerController(name, lastName1, lastName2, RFC, telephone, perAddress, gender, email, passw, conName, charge);
                         alert.setContentText(response);
                         alert.showAndWait();
-                        txtCusName.setText("");
-                        txtCusLastName1.setText("");
-                        txtCusLastName2.setText("");
-                        txtCusRFC.setText("");
-                        txtCusPhone.setText("");
-                        txtAddress.setText("");
-                        txtEmail.setText("");
-                        txtPassword.setText("");
-                        btnNewCustomer.setDisable(false);
-                        btnDeleteCustomer.setDisable(true);
-                        btnSaveCustomer.setDisable(true);
-                        cmbGenre.setValue("");
+                        clearData();
                     });
                 }
             } catch (Exception e) {
@@ -180,6 +172,7 @@ public class PanelCustomer implements Initializable {
                 String email = txtEmail.getText().trim();
                 String pass = txtPassword.getText().trim();
                 String gender = cmbGenre.getValue().toString();
+                String status = cmbCusStatus.getValue().toString();
                 String conName = txtCusConName.getText().trim();
                 String charge = txtCharge.getText().trim();
                 alert.setHeaderText("Alert:");
@@ -191,21 +184,10 @@ public class PanelCustomer implements Initializable {
                     Platform.runLater(() -> {
                         //modify
                         String response = CustomerController.modifyCustomerController(name, lastName1, lastName2, RFC, telephone, perAddress, gender, email, pass,
-                                charge, cus.getCusStatus(), cus.getCusId(), cus.getConsumer().getConId(), cus.getPerId());
+                                charge, status, cus.getCusId(), cus.getConsumer().getConId(), cus.getPerId());
                         alert.setContentText(response);
                         alert.showAndWait();
-                        txtCusName.setText("");
-                        txtCusLastName1.setText("");
-                        txtCusLastName2.setText("");
-                        txtCusRFC.setText("");
-                        txtCusPhone.setText("");
-                        txtAddress.setText("");
-                        txtEmail.setText("");
-                        txtPassword.setText("");
-                        btnNewCustomer.setDisable(false);
-                        btnDeleteCustomer.setDisable(true);
-                        btnSaveCustomer.setDisable(true);
-                        cmbGenre.setValue("");
+                        clearData();
                     });
                 }
             } catch (Exception e) {
@@ -220,20 +202,7 @@ public class PanelCustomer implements Initializable {
                 String response = CustomerController.logicalDelteCustomer(cus.getCusId());
                 alert.setContentText(response);
                 alert.showAndWait();
-                txtCusName.setText("");
-                txtCusLastName1.setText("");
-                txtCusLastName2.setText("");
-                txtCusRFC.setText("");
-                txtCusPhone.setText("");
-                txtAddress.setText("");
-                txtEmail.setText("");
-                txtPassword.setText("");
-                txtCharge.setText("");
-                btnNewCustomer.setDisable(false);
-                btnDeleteCustomer.setDisable(true);
-                btnSaveCustomer.setDisable(true);
-                btnSaveCustomer.setDisable(true);
-                cmbGenre.setValue("");
+                clearData();
             });
         });
         btnUpdate.setOnAction((event) -> {
@@ -256,8 +225,17 @@ public class PanelCustomer implements Initializable {
                 txtCusRFC.setEditable(false);
                 txtCharge.setText(customer.getConsumer().getRole());
                 cmbGenre.setValue(customer.getGender());
+                txtCusConName.setVisible(true);
+                txtCusConName.setText(customer.getConsumer().getConName());
+                cmbCusStatus.setVisible(true);
+                if (customer.getCusStatus() == 1) {
+                    cmbCusStatus.setValue("Activo");
+                    btnDeleteCustomer.setDisable(false);
+                } else {
+                    cmbCusStatus.setValue("Inactivo");
+                    btnDeleteCustomer.setDisable(true);
+                }
                 btnSaveCustomer.setDisable(false);
-                btnDeleteCustomer.setDisable(false);
                 btnNewCustomer.setDisable(true);
             }
         });
@@ -375,6 +353,11 @@ public class PanelCustomer implements Initializable {
         cmbGenre.getItems().add("M");
         cmbGenre.getItems().add("F");
         cmbGenre.getItems().add("O");
+
+        cmbCusStatus.getItems().add("Activo");
+        cmbCusStatus.getItems().add("Inactivo");
+        cmbCusStatus.setVisible(false);
+
         txtCusConName.setVisible(false);
     }
 
@@ -382,6 +365,27 @@ public class PanelCustomer implements Initializable {
         tblCustomer.getItems().clear();
         addValues();
         creatingTables();
+        clearData();
+    }
+
+    public void clearData() {
+        txtCusName.setText("");
+        txtCusLastName1.setText("");
+        txtCusLastName2.setText("");
+        txtCusRFC.setText("");
+        txtCusPhone.setText("");
+        txtAddress.setText("");
+        txtEmail.setText("");
+        txtPassword.setText("");
+        txtCharge.setText("");
+        lblClientNumber.setText("No. cliente");
+        cmbGenre.setValue("");
+        cmbCusStatus.setValue("");
+        cmbCusStatus.setVisible(false);
+        txtCusConName.setVisible(false);
+        btnNewCustomer.setDisable(false);
+        btnDeleteCustomer.setDisable(true);
+        btnSaveCustomer.setDisable(true);
     }
 
 }

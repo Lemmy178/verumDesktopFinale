@@ -106,6 +106,7 @@
                               <JFXTextField fx:id="txtCusPhone" focusColor="#009551" labelFloat="true" layoutX="15.0" layoutY="772.0" prefHeight="25.0" promptText="Teléfono" unFocusColor="#00a65a" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" />
                               <JFXTextField fx:id="txtAddress" focusColor="#009551" labelFloat="true" layoutX="15.0" layoutY="826.0" prefHeight="25.0" promptText="Dirección" unFocusColor="#00a65a" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" />
                               <JFXComboBox fx:id="cmbGenre" focusColor="#009551" labelFloat="true" layoutX="15.0" layoutY="884.0" prefHeight="25.0" promptText="Género" unFocusColor="#00a65a" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" />
+                              <JFXComboBox fx:id="cmbCusStatus" focusColor="#009551" labelFloat="true" layoutX="15.0" layoutY="944.0" prefHeight="25.0" promptText="Estatus" unFocusColor="#00a65a" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" />
                               <HBox alignment="CENTER" layoutX="50.0" layoutY="216.0" prefHeight="27.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0">
                                  <children>
                                     <Label fx:id="lblClientNumber" text="No. cliente">
